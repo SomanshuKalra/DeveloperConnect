@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
   //Verify token
   try {
     const decoded = jwt.verify(token, config.get("jwtSecret"));
-    req.user = decoded.user;
+    req.user = decoded.user; //If token is verified, add token to request body to be used by every auth flow
     next();
   } catch (err) {
     console.log(err.message);

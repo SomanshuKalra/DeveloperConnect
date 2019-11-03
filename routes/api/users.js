@@ -9,7 +9,7 @@ const config = require("config");
 //Import User model
 const User = require("../../models/User");
 
-// @route   POST api/user
+// @route   POST api/user/register
 // @desc    Register users
 // @access  Public
 router.post(
@@ -28,8 +28,6 @@ router.post(
   async (req, res) => {
     const { name, email, password } = req.body;
     try {
-      console.log(req.body);
-
       //Get the results of request validation and check for errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -80,7 +78,7 @@ router.post(
         },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          return res.json({ token });
         }
       );
     } catch (err) {
