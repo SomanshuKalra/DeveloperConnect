@@ -9,7 +9,7 @@ const config = require("config");
 //Import User model
 const User = require("../../models/User");
 
-// @route   POST api/user/register
+// @route   POST api/users/register
 // @desc    Register users
 // @access  Public
 router.post(

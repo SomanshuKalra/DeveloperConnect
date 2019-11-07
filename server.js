@@ -2,7 +2,7 @@ const express = require("express");
 const connectdb = require("./config/db");
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+const cors = require("cors");
 //Connect to database before running the server
 connectdb();
 
@@ -12,8 +12,12 @@ app.use(
     extended: false
   })
 );
+
+//Defining cors middleware
+app.use(cors());
+
 //Define routes
-app.use("/api/user", require("./routes/api/users"));
+app.use("/api/users", require("./routes/api/users"));
 app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/auth", require("./routes/api/auth"));

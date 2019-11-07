@@ -1,20 +1,5 @@
 import React from "react";
-//import styled from "styled-components";
-//import PropTypes from "prop-types";
-
-// #region styled-components
-
-// #endregion
-
-// #region functions
-
-// #endregion
-
-// #region constants
-
-// #endregion
-
-// #region component
+import { Link } from "react-router-dom";
 const propTypes = {};
 
 const defaultProps = {};
@@ -26,19 +11,19 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-dark">
       <h1>
-        <a href="index.html">
+        <Link to="/">
           <i className="fas fa-code"></i> DevConnector
-        </a>
+        </Link>
       </h1>
       <ul>
         <li>
-          <a href="profiles.html">Developers</a>
+          <Link to="/profile">Developers</Link>
         </li>
         <li>
-          <a href="register.html">Register</a>
+          <Link to="/register">Register</Link>
         </li>
         <li>
-          <a href="login.html">Login</a>
+          <Link to="/login">Login</Link>
         </li>
       </ul>
     </nav>
