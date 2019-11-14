@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
+//After importing connect, you need to export it along with component name
+import { connect } from "react-redux";
 
 //import styled from "styled-components";
-//import PropTypes from "prop-types";
-const propTypes = {};
+import PropTypes from "prop-types";
+
+//Add setAlert as a required prop
+const propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
+};
 
 const defaultProps = {};
 
-const Register = () => {
+const Register = ({ setAlert, register }) => {
   //Adding useState hook for formData (formData - previous state, setFormData - new state to be saved)
   const [formData, setformData] = useState({
     name: "",
@@ -21,34 +29,11 @@ const Register = () => {
   const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Passwords do not match");
+      //Fetching setAlert from props after destructuring
+      console.log("inside register component");
+      setAlert("Passwords do not match", "danger");
     } else {
-      const newUser = {
-        name,
-        email,
-        password,
-        password2
-      };
-
-      try {
-        console.log("inside on submit");
-        const configuration = {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        };
-
-        const body = JSON.stringify(newUser);
-        console.log("before making request");
-        const res = await axios.post(
-          process.env.REACT_APP_BASE_API_URL + "/api/users/register",
-          body,
-          configuration
-        );
-        console.log(res);
-      } catch (error) {
-        console.error(error.message);
-      }
+      register({ name, email, password });
     }
   };
 
@@ -72,7 +57,7 @@ const Register = () => {
             name="name"
             value={name}
             onChange={e => onChange(e)}
-            required
+            //required
           />
         </div>
         <div className="form-group">
@@ -95,8 +80,8 @@ const Register = () => {
             name="password"
             value={password}
             onChange={e => onChange(e)}
-            minLength="6"
-            required
+            //minLength="6"
+            //required
           />
         </div>
         <div className="form-group">
@@ -106,8 +91,8 @@ const Register = () => {
             name="password2"
             value={password2}
             onChange={e => onChange(e)}
-            minLength="6"
-            required
+            //minLength="6"
+            //required
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
@@ -119,8 +104,14 @@ const Register = () => {
   );
 };
 
+//Add setAlert to proptypes
 Register.propTypes = propTypes;
-Register.defaultProps = defaultProps;
-// #endregion
 
-export default Register;
+Register.defaultProps = defaultProps;
+
+//Connect takes 2 things - state you want to map, object with actions you want to use
+//setAlert is available as props
+export default connect(
+  null,
+  { setAlert, register }
+)(Register);

@@ -31,6 +31,7 @@ router.post(
       //Get the results of request validation and check for errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.log("Errors in validation, returning errors");
         return res.status(400).json({ errors: errors.array() });
       }
 
